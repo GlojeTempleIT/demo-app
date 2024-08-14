@@ -6,9 +6,9 @@ export default function ScanQrCodePage() {
   const [result, setResult] = useState<string | null>(null);
   
   return (
-    <div>
+    <div className="w-full min-h-dvh flex flex-col items-center">
       <h1>Scan QR Code</h1>
-      <div className="size-[200px]">
+      <div className="w-full aspect-square max-w-screen-md">
         <Html5QrcodePlugin
           fps={10}
           qrbox={{ width: 250, height: 250 }}
