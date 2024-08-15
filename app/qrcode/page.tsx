@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react"
 
-type QrCodeData = {
+export type QrCodeData = {
   timestamp: number;
   email: string
   name: string
