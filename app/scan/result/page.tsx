@@ -5,10 +5,11 @@ import { ScanContext } from "../layout";
 import { useContext } from "react";
 
 export default function ScanResultPage() {
-  const { result } = useContext(ScanContext);
+  const { result, setIsCheckingIn } = useContext(ScanContext);
   const { push } = useRouter();
 
-  const handleOnboard = () => {
+  const handleCheck = (isIn: boolean) => () => {
+    setIsCheckingIn(isIn);
     push('/scan/complete');
   };
   
@@ -35,10 +36,6 @@ export default function ScanResultPage() {
             <td>{result?.phone}</td>
           </tr>
           <tr>
-            <th>Purpose</th>
-            <td>{result?.purpose}</td>
-          </tr>
-          <tr>
             <th>Schedule Date</th>
             <td>{result?.scheduledDate}</td>
           </tr>
@@ -46,10 +43,17 @@ export default function ScanResultPage() {
             <th>Last 4 digit in ID</th>
             <td>{result?.idLast4}</td>
           </tr>
+          <tr>
+            <th>Visitor Count</th>
+            <td>{result?.visitorCount}</td>
+          </tr>
         </tbody>
       </table>
 
-      <button className="btn btn-success" onClick={handleOnboard}>onBoard</button>
+      <div className="flex gap-2">
+        <button className="btn btn-success" onClick={handleCheck(true)}>Check in</button>
+        <button className="btn btn-error" onClick={handleCheck(false)}>Check out</button>
+      </div>
     </div>
   );
 }

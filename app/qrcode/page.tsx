@@ -5,13 +5,13 @@ import { useEffect, useState } from "react"
 
 export type QrCodeData = {
   timestamp: number;
-  email: string
-  name: string
-  gender: string
-  phone: string
-  purpose: string
-  scheduledDate: string
-  idLast4: string
+  email: string;
+  name: string;
+  gender: string;
+  phone: string;
+  idLast4: string;
+  visitorCount: number;
+  scheduledDate: string;
 }
 
 const randomString = (length: number) => {
@@ -50,8 +50,8 @@ export default function QrcodePage() {
       name: randomString(10),
       gender: Math.random() > 0.5 ? 'Male' : 'Female',
       phone: '09' + Math.random().toString().slice(2, 10),
-      purpose: chooseRandom(['洽公', '參訪', '法會', '其他']),
       scheduledDate: new Date(Date.now() + Math.random() * 1000 * 60 * 60 * 24 * 7).toISOString(),
+      visitorCount: Math.floor(Math.random() * 100),
       idLast4: Math.random().toString().slice(2, 6)
     });
   };
