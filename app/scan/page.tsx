@@ -27,9 +27,9 @@ const decodeRawData = (rawData: string): QrCodeData | null => {
       name,
       gender,
       phone,
-      idLast4,
+      id: idLast4,
       visitorCount: parseInt(visitorCount),
-      scheduledDate,
+      scheduled: scheduledDate,
     };
   }
 }

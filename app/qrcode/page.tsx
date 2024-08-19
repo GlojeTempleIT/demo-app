@@ -9,9 +9,9 @@ export type QrCodeData = {
   name: string;
   gender: string;
   phone: string;
-  idLast4: string;
+  id: string;
   visitorCount: number;
-  scheduledDate: string;
+  scheduled: string;
 }
 
 const randomString = (length: number) => {
@@ -50,9 +50,9 @@ export default function QrcodePage() {
       name: randomString(10),
       gender: Math.random() > 0.5 ? 'Male' : 'Female',
       phone: '09' + Math.random().toString().slice(2, 10),
-      scheduledDate: new Date(Date.now() + Math.random() * 1000 * 60 * 60 * 24 * 7).toISOString(),
+      scheduled: new Date(Date.now() + Math.random() * 1000 * 60 * 60 * 24 * 7).toISOString(),
       visitorCount: Math.floor(Math.random() * 100),
-      idLast4: Math.random().toString().slice(2, 6)
+      id: Math.random().toString().slice(2, 6)
     });
   };
 

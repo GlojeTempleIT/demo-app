@@ -37,11 +37,11 @@ export default function ScanResultPage() {
           </tr>
           <tr>
             <th>Schedule Date</th>
-            <td>{result?.scheduledDate}</td>
+            <td>{result?.scheduled}</td>
           </tr>
           <tr>
             <th>Last 4 digit in ID</th>
-            <td>{result?.idLast4}</td>
+            <td>{result?.id}</td>
           </tr>
           <tr>
             <th>Visitor Count</th>
