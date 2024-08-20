@@ -40,7 +40,6 @@ export default function ScanQrCodePage() {
 
   return (
     <div className="w-full min-h-dvh flex flex-col items-center">
-      <h1>Scan QR Code</h1>
       <div className="w-full aspect-square max-w-screen-md">
         <Html5QrcodePlugin
           fps={10}

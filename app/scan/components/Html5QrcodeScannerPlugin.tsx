@@ -1,5 +1,5 @@
 // file = Html5QrcodePlugin.jsx
-import { Html5QrcodeScanner, Html5QrcodeCameraScanConfig } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5QrcodeCameraScanConfig, Html5Qrcode } from 'html5-qrcode';
 import { useEffect, useRef } from 'react';
 
 const qrcodeRegionId = "html5qr-code-full-region";
@@ -13,21 +13,29 @@ type Props = Html5QrcodeCameraScanConfig & {
 };
 
 const Html5QrcodePlugin = ({ id: _id, verbose = false, qrCodeSuccessCallback, qrCodeErrorCallback, className, ...config }: Props) => {
-  const id = _id || qrcodeRegionId;
-  const scannerRef = useRef<Html5QrcodeScanner | null>(null);
+  const scannerRef = useRef<Html5Qrcode | null>(null);
 
   useEffect(() => {
-    const html5QrcodeScanner = new Html5QrcodeScanner(qrcodeRegionId, config, verbose);
-    html5QrcodeScanner.render(qrCodeSuccessCallback, qrCodeErrorCallback);
-    scannerRef.current = html5QrcodeScanner;
-
-    // cleanup function when component will unmount
-    return () => {
-      html5QrcodeScanner.clear().catch(error => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-      });
-    };
-  }, [config, id, qrCodeErrorCallback, qrCodeSuccessCallback, verbose]);
+    if (!scannerRef.current) {
+      const html5QrCode = new Html5Qrcode(qrcodeRegionId);
+      const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+  
+      // If you want to prefer back camera
+      html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback, qrCodeErrorCallback);
+      
+      scannerRef.current = html5QrCode;
+  
+      return () => {
+        if (html5QrCode.isScanning) {
+          html5QrCode.stop().then(() => {
+            console.log('Stopped');
+          }).catch((error) => {
+            console.error('Failed to stop', error);
+          });
+        }
+      }
+    }
+  }, [config, qrCodeErrorCallback, qrCodeSuccessCallback, verbose]);
 
   return (
       <div id={qrcodeRegionId} />
